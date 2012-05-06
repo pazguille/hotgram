@@ -1,0 +1,18 @@
+{
+    "name": "Hotgram",
+    "description": "What's hot on Instagram",
+    "version": "0.1",
+    "icons": {
+        "16": "src/assets/icon16.png",
+        "48": "src/assets/icon48.png",
+        "128": "src/assets/icon128.png"
+    },
+    "permissions": [
+    	"tabs"
+	],
+    "browser_action": {
+        "default_icon": "src/assets/icon16.png",
+        "default_title": "What's hot on Instagram",
+        "popup": "popup.html"
+    }
+}
