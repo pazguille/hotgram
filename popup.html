@@ -5,7 +5,8 @@
 		<meta charset="utf-8">
 		<title>What's hot on Instagram</title>
 		<link rel="stylesheet" href="src/css/normalize.css">
-		<link rel="stylesheet" href="src/css/chico-mobile.css">
+		<link rel="stylesheet" href="src/css/chico.css">
+		<link rel="stylesheet" href="src/css/hotgram.css">
 	</head>
 	<body>
 
@@ -19,17 +20,25 @@
 		<!-- Templates -->
 		<script type="text/template" id="tpl-photo">
 			<article class="photo">
-				<figure>
-					<img src="<%= images.standard_resolution.url %>" alt="">
-					
-				</figure>
-				<footer class="details">
+				<header class="details">
+					<h2 class="author">
+						<a href="<%= user.website %>" target="_blank">
+							<img src="<%= user.profile_picture %>" width="45" height="45" alt="<%= user.full_name %>" /> <%= user.username %>
+						</a>
+					</h2>
 					<ul class="ch-stats">
-						<li><%= likes.count %> <span>likes&nbsp;&nbsp;</span></li>
-						<li><%= comments.count %> <span>comments&nbsp;&nbsp;</span></li>
+						<li class="ch-icon-thumbs-up"><%= likes.count %> <span>likes&nbsp;&nbsp;</span></li>
+						<li class="ch-icon-comment"><%= comments.count %> <span>comments&nbsp;&nbsp;</span></li>
 					</ul>
-					<p class="author"><strong><%= user.username %></strong> uploaded</p>
-				</footer>
+				</header>
+				<figure>
+					<a class="viewer" href="<%= link %>" target="_blank">
+						<img src="<%= images.standard_resolution.url %>" alt="<%= description %>">
+					</a>
+					<% if (description !== "") { %>
+						<figcaption><%= description %></figcaption>
+					<% } %>
+				</figure>
 			</article>
 		</script>
 		<script>

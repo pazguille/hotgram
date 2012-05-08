@@ -33,7 +33,17 @@ var PhotoView = Backbone.View.extend({
 	"template": _.template($("#tpl-photo").html()),
 
 	"render": function () {
-		var photo = this.model.toJSON();
+		var photo = this.model,
+			caption = photo.get("caption"),
+			description = "";
+
+		if (caption !== null) {
+			description = photo.get("caption").text;
+		}
+
+		photo.set("description", description)
+
+		photo = photo.toJSON();
 
 		$(this.el).html(this.template(photo));
 
@@ -45,8 +55,6 @@ var AppView = Backbone.View.extend({
 	"el": "#hottest",
 
 	"initialize": function () {
-		this.page = 1;
-		this.limit = 50;
 		this.collection = new PhotoCollection();
 		
 		this.$el
@@ -85,14 +93,8 @@ var AppView = Backbone.View.extend({
 
 	"fetch":  function () {
 		var that  = this;
-
 		this.$loading.removeClass("ch-hide");
-
 		this.collection.fetch({
-			"data": {
-				"limit": this.limit,
-				"page": that.page
-			},
 			"success": function () {
 				that.$loading.addClass("ch-hide");
 				that.render();
@@ -104,7 +106,6 @@ var AppView = Backbone.View.extend({
 		var height = this.$list.height() - this.$el.height();
 		var bottom = this.el.scrollTop;
 		if (height === bottom) {
-			this.page += 1;
 			this.fetch();
 		};
 
@@ -119,7 +120,6 @@ var AppView = Backbone.View.extend({
 	},
 
 	"reset": function () {
-		this.page = 1;
 		this.collection.reset();
 		this.$list.html("");
 	}

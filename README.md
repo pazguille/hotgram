@@ -1,4 +1,4 @@
-# 
+# What's hot on Instagram
 Hotgram - Unofficial chrome extension to view the most popular photos on instagram and pin it on Pinterest
 
 ## Contact
