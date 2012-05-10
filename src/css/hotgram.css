@@ -6,7 +6,7 @@
 }
 
 
-/* only extension */
+/* only extension 
 body, .ch-header {
 	width: 400px;
 }
@@ -51,11 +51,11 @@ a:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#4982af', EndColorStr='#1f5583');
 	background-position: 50% 50%;
 
-	/*position: fixed;
+	position: fixed;
 	left: 0;
 	right: 0;
 	top: 0;
-	z-index: 1;*/
+	z-index: 1;
 
 }
 
@@ -301,8 +301,8 @@ a.ch-btn-skin:visited {
 	margin: 0;
 	overflow: auto;
 	position: relative;
-	top: 0;
-	/*top: 45px;*/
+	/*top: 0;*/
+	top: 45px;
 }
 
 .photo {
