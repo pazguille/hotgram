@@ -11,6 +11,10 @@ body, .ch-header {
 	width: 400px;
 }
 
+#hottest { 
+	max-height: 500px;
+}
+
 .photo .viewer {
 	width: 320px;
 	height: 320px;
@@ -46,6 +50,13 @@ a:hover {
 	background-image: linear-gradient(top, #4982AF, #1F5583);
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#4982af', EndColorStr='#1f5583');
 	background-position: 50% 50%;
+
+	/*position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 1;*/
+
 }
 
 .ch-logo {
@@ -69,6 +80,12 @@ a:hover {
 	font-size: 1.2em;
 	padding: 0px 5px 0 0;
 	line-height: 0.6em;
+}
+
+.login {
+	position: absolute;
+	top: 8px;
+	right: 10px;
 }
 
 .ch-header-form {
@@ -283,9 +300,9 @@ a.ch-btn-skin:visited {
 #hottest {
 	margin: 0;
 	overflow: auto;
-	max-height: 500px;
 	position: relative;
 	top: 0;
+	/*top: 45px;*/
 }
 
 .photo {
@@ -317,7 +334,7 @@ a.ch-btn-skin:visited {
 
 .photo .viewer {
 	display: inline-block;
-	background: #352F2A url("../assets/loading.gif") no-repeat center;
+	background: #352F2A;
 	padding: 20px;
 	-webkit-border-radius: 1em;
 	border-radius: 1em;
