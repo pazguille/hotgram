@@ -69,7 +69,7 @@ var AppView = Backbone.View.extend({
 
 	"events": {
 		"scroll": "more",
-		"click .repin": "repin"
+		"click .shareButton": "shareButton"
 	},
 
 	"$list": $("<ul class=\"ch-slats ch-hide\">"),
@@ -112,10 +112,19 @@ var AppView = Backbone.View.extend({
 		return;
 	},
 
-	"repin": function (event) {		
-		chrome.tabs.create({url: event.target.href});
-		window.close();
-
+	"shareButton": function (event) {
+		//chrome.windows.create({"url": event.target.href, "width": 400, "height":300, "focused": true, "type": "popup"}, function () {});
+		(function () {
+			var link = event.target;
+			$.ajax({
+				"url": link.href,
+				"type": "POST",
+				"data": {"access_token": token},
+				"success": function () {
+					link.text("Like!");
+				}
+			});
+		}());
 		return false;
 	},
 
@@ -126,7 +135,9 @@ var AppView = Backbone.View.extend({
 
 });
 
-var hottest;
+var hottest,
+	token = "51439841.f59def8.8be3f5264a934884b3e5eb0aecd36097";
 setTimeout(function () {
 	hottest = new AppView();
+
 }, 1000);

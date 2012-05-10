@@ -5,6 +5,21 @@
 	  src: local("Satisfy"), url("../fonts/satisfy.woff") format("woff");
 }
 
+
+/* only extension */
+body, .ch-header {
+	width: 400px;
+}
+
+.photo .viewer {
+	width: 320px;
+	height: 320px;
+}
+/*end*/
+
+
+
+
 body {
 	background: #F4F4F4;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
@@ -168,6 +183,7 @@ a.ch-btn-skin:visited {
 	height: 24px;
 	line-height: 25px;
 	padding: 0 5px;
+	display: inline-block;
 }
 
 .ch-loading {
@@ -210,7 +226,7 @@ a.ch-btn-skin:visited {
 	font-size: 1.3em;
 	line-height: 1em;
 	padding: 0 3px 0 0;
-	color: #AE1E1D;
+	color: #8C7E7E;
 }
 
 .ch-slats {
@@ -226,10 +242,6 @@ a.ch-btn-skin:visited {
 	padding: 0 10px;
 }
 
-.ch-slats > li figure iframe {
-	background: url("../assets/loading.gif") no-repeat center;
-}
-
 .ch-slats > li a p {
 	margin: 10px 0;
 	line-height: 1em;
@@ -238,13 +250,6 @@ a.ch-btn-skin:visited {
 .ch-stats {
 	color: #8C7E7E;
 	overflow: hidden;
-}
-
-.ch-stats li[class^="ch-icon-"]::before,
-.ch-stats li[class*=" ch-icon-"]::before,
-.ch-stats li[class^="ch-icon-"]::after,
-.ch-stats li[class*=" ch-icon-"]::after {
-	color: #8C7E7E;
 }
 
 .ch-stats li {
@@ -271,15 +276,9 @@ a.ch-btn-skin:visited {
 	text-indent: -150px;
 }
 
-/* only extension */
-body, .ch-header {
-	width: 400px;
+.ch-hidden {
+	visibility: hidden;
 }
-
-.photo a {
-	width: 320px;
-}
-/*end*/
 
 #hottest {
 	margin: 0;
@@ -311,9 +310,14 @@ body, .ch-header {
 	height: 25px;
 }
 
+.photo figure {
+	position: relative;
+}
+
+
 .photo .viewer {
 	display: inline-block;
-	background-color: #352F2A;
+	background: #352F2A url("../assets/loading.gif") no-repeat center;
 	padding: 20px;
 	-webkit-border-radius: 1em;
 	border-radius: 1em;
@@ -331,4 +335,41 @@ body, .ch-header {
 	-webkit-border-radius: .5em;
 	-moz-border-radius: .5em;
 	border-radius: .5em;
+}
+
+.photo figure:hover .share {
+	display: block;
+}
+
+.photo .share {
+	position: absolute;
+	text-align: center;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: none;
+}
+
+.photo .share a {
+	margin: 0 5px;
+	padding: 0px 5px;
+	display: inline-block;
+}
+
+.photo .share iframe {
+	border: none;
+	overflow: hidden;
+	width: 79px;
+	height: 24px;
+	position: relative;
+	top: 8px;
+	left: 5px;
+}
+
+.photo .share [class^="ch-icon-"]::before,
+.photo .share [class*=" ch-icon-"]::before,
+.photo .share [class^="ch-icon-"]::after,
+.photo .share [class*=" ch-icon-"]::after {
+	font-size: 1.6em;
+	line-height: .5em;
 }

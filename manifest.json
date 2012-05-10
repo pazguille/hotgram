@@ -1,6 +1,6 @@
 {
     "name": "Hotgram",
-    "description": "Hotgram - Unofficial chrome extension to view the most popular photos on instagram and pin it on Pinterest.",
+    "description": "Hotgram - Unofficial chrome extension to view the most popular photos on instagram and share it on Twitter, Pinterest and Facebook.",
     "version": "0.1",
     "icons": {
         "16": "src/assets/icon16.png",
@@ -8,7 +8,8 @@
         "128": "src/assets/icon128.png"
     },
     "permissions": [
-    	"tabs"
+    	"tabs",
+        "https://twitter.com/intent/tweet"
 	],
     "browser_action": {
         "default_icon": "src/assets/icon16.png",

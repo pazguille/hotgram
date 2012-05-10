@@ -9,14 +9,12 @@
 		<link rel="stylesheet" href="src/css/hotgram.css">
 	</head>
 	<body>
-
 		<header class="ch-header">
 			<h1 class="ch-logo">Hotgram</h1>
 		</header>
-		<section id="hottest">
+		<section id="hottest" role="content">
 			<div class="ch-loading"></div>
 		</section>
-
 		<!-- Templates -->
 		<script type="text/template" id="tpl-photo">
 			<article class="photo">
@@ -38,6 +36,15 @@
 					<% if (description !== "") { %>
 						<figcaption><%= description %></figcaption>
 					<% } %>
+					<div class="share">
+						<!--
+						<a class="ch-btn-skin ch-btn-tiny ch-icon-twitter-sign shareButton" href="https://twitter.com/share?url=<%= link %>&text=I like this photo (by <%= user.username %>) -&hashtags=hotgram,instagram" target="_blank">Tweet</a>
+						<a href="http://pinterest.com/pin/create/button/?url=<%= link %>&media=<%= images.standard_resolution.url %>&description=I like this photo (by <%= user.username %>)" count-layout="none" class="ch-btn-skin ch-btn-tiny ch-icon-pushpin shareButton">Pin it</a>
+						-->
+						<a href="https://api.instagram.com/v1/media/<%= id %>/likes" count-layout="none" class="ch-btn-skin ch-btn-tiny ch-icon-heart shareButton">I like</a>
+
+						<iframe src="http://www.facebook.com/plugins/like.php?href=<%= link %>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=294291827276283" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+					</div>
 				</figure>
 			</article>
 		</script>
