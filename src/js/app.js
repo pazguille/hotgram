@@ -146,10 +146,12 @@ var AppView = Backbone.View.extend({
 // Save token
 if (window.location.hash.indexOf("access_token") !== -1) {
 	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
+	window.location = "/";
 }
 
 if (localStorage["hotgramToken"]){
 	$(".login").remove();
+	//self.close();
 }
 
 var hottest;
