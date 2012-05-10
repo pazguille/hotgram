@@ -1,3 +1,13 @@
+// Save token
+if (window.location.hash.indexOf("access_token") !== -1) {
+	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
+	window.location = "/hotgram";
+}
+
+if (localStorage["hotgramToken"]){
+	$(".login").remove();
+	//self.close();
+}
 /*
 https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes
 me devuelve esto:
@@ -142,17 +152,6 @@ var AppView = Backbone.View.extend({
 });
 
 //chrome.tabs.create({"url":"https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes"});
-
-// Save token
-if (window.location.hash.indexOf("access_token") !== -1) {
-	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
-	window.location = "/";
-}
-
-if (localStorage["hotgramToken"]){
-	$(".login").remove();
-	//self.close();
-}
 
 var hottest;
 setTimeout(function () {
