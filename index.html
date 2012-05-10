@@ -7,11 +7,20 @@
 		<link rel="stylesheet" href="src/css/normalize.css">
 		<link rel="stylesheet" href="src/css/chico.css">
 		<link rel="stylesheet" href="src/css/hotgram.css">
+		
+		<!-- Mobile viewport optimization -->
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+		<!-- Active for phones -->
+		<link rel="stylesheet" href="src/css/mobile.css" media="only screen and (min-width: 240px)" />
+		<!-- Active for tablets -->
+		<link rel="stylesheet"  href="src/css/tablet.css"  media="only screen and (min-width: 768px)" />
 	</head>
 	<body>
 		<header class="ch-header">
 			<h1 class="ch-logo">Hotgram</h1>
-			<a href="https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes" class="ch-btn ch-btn-tiny login">Login</a>
 		</header>
 		<section id="hottest" role="content">
 			<div class="ch-loading"></div>

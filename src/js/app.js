@@ -1,4 +1,12 @@
 /*
+https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes
+me devuelve esto:
+http://pazguille.github.com/hotgram/#access_token=51439841.e7f1bd8.49b62a6be28748fca64f30067c8fdc36
+curl -F 'access_token=51439841.f59def8.8be3f5264a934884b3e5eb0aecd36097' \
+https://api.instagram.com/v1/media/{media-id}/likes
+*/
+
+/*
 * Models
 */
 
@@ -12,7 +20,7 @@ var PhotoCollection = Backbone.Collection.extend({
 
 	"sync": function (method, model, options) {
 		options.dataType = "jsonp";
-		options.data = {"client_id": "e7f1bd84f9c34c02a3bc88cd058942a1"};
+		options.data = {"client_id": "8592b07f6eaf4efb9e3b6c7a054b6aa0"};
 
 		return Backbone.sync(method, model, options);
 	},
@@ -113,17 +121,15 @@ var AppView = Backbone.View.extend({
 	},
 
 	"shareButton": function (event) {
-		//chrome.windows.create({"url": event.target.href, "width": 400, "height":300, "focused": true, "type": "popup"}, function () {});
 		(function () {
 			var link = event.target;
 			$.ajax({
 				"url": link.href,
 				"type": "POST",
-				"data": {"access_token": token},
-				"success": function () {
-					link.text("Like!");
-				}
+				"dataType": "JSON",
+				"data": {"access_token": localStorage["hotgramToken"]}
 			});
+			$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");
 		}());
 		return false;
 	},
@@ -135,9 +141,18 @@ var AppView = Backbone.View.extend({
 
 });
 
-var hottest,
-	token = "51439841.f59def8.8be3f5264a934884b3e5eb0aecd36097";
+//chrome.tabs.create({"url":"https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes"});
+
+// Save token
+if (window.location.hash.indexOf("access_token") !== -1) {
+	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
+}
+
+if (localStorage["hotgramToken"]){
+	$(".login").remove();
+}
+
+var hottest;
 setTimeout(function () {
 	hottest = new AppView();
-
 }, 1000);
