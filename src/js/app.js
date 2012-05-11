@@ -1,20 +1,3 @@
-// Save token
-if (window.location.hash.indexOf("access_token") !== -1) {
-	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
-	window.location = "/hotgram";
-}
-
-if (localStorage["hotgramToken"]){
-	$(".login").remove();
-}
-/*
-https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes
-me devuelve esto:
-http://pazguille.github.com/hotgram/#access_token=51439841.e7f1bd8.49b62a6be28748fca64f30067c8fdc36
-curl -F 'access_token=51439841.f59def8.8be3f5264a934884b3e5eb0aecd36097' \
-https://api.instagram.com/v1/media/{media-id}/likes
-*/
-
 /*
 * Models
 */
@@ -86,7 +69,7 @@ var AppView = Backbone.View.extend({
 
 	"events": {
 		"scroll": "more",
-		"click .shareButton": "shareButton"
+		"click .pic": "pic"
 	},
 
 	"$list": $("<ul class=\"ch-slats ch-hide\">"),
@@ -120,8 +103,8 @@ var AppView = Backbone.View.extend({
 	},
 
 	"more": function () {
-		var height = this.$list.height() - this.$el.height();
-		var bottom = this.el.scrollTop;
+		var height = this.$list.height() - this.$el.height(),
+			bottom = this.el.scrollTop;
 		if (height === bottom) {
 			this.fetch();
 		};
@@ -129,17 +112,8 @@ var AppView = Backbone.View.extend({
 		return;
 	},
 
-	"shareButton": function (event) {
-		(function () {
-			var link = event.target;
-			$.ajax({
-				"url": link.href,
-				"type": "POST",
-				"dataType": "JSON",
-				"data": {"access_token": localStorage["hotgramToken"]}
-			});
-			$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");
-		}());
+	"pic": function (event) {
+		chrome.tabs.create({"url": event.currentTarget.href});
 		return false;
 	},
 
