@@ -72,6 +72,8 @@ var AppView = Backbone.View.extend({
 	"el": "#hottest",
 
 	"initialize": function () {
+		var that = this;
+
 		this.collection = new PhotoCollection();
 		
 		this.$el
@@ -79,13 +81,18 @@ var AppView = Backbone.View.extend({
 
 		this.$el.removeClass("ch-hide");
 
+		$(window).on("scroll", function () {
+			if (window.scrollY + window.innerHeight == document.body.scrollHeight) {
+				that.fetch();
+			}
+		});
+
 		this.reset();
 
 		this.fetch();
 	},
 
 	"events": {
-		"scroll": "more",
 		"click .shareButton": "shareButton"
 	},
 
@@ -119,27 +126,31 @@ var AppView = Backbone.View.extend({
 		});
 	},
 
-	"more": function () {
-		var height = this.$list.height() - this.$el.height();
-		var bottom = this.el.scrollTop;
-		if (height === bottom) {
-			this.fetch();
-		};
-
-		return;
-	},
-
 	"shareButton": function (event) {
-		(function () {
-			var link = event.target;
-			$.ajax({
-				"url": link.href,
-				"type": "POST",
-				"dataType": "JSON",
-				"data": {"access_token": localStorage["hotgramToken"]}
-			});
-			$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");
-		}());
+		if (localStorage["hotgramToken"]) {
+			(function () {
+				var link = event.target;
+				$.ajax({
+					"url": link.href,
+					"type": "POST",
+					"dataType": "json",
+					"data": {
+						"access_token": localStorage["hotgramToken"]
+					},
+					"success": function () {
+						$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");
+					},
+					"error": function () {
+						$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");	
+						//alert("Have a problem!");
+					}
+				});
+			}());
+			return false;
+		}
+
+		window.location.href = $(".login")[0].href;
+
 		return false;
 	},
 

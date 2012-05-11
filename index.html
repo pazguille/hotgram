@@ -16,7 +16,7 @@
 	<body>
 		<header class="ch-header">
 			<h1 class="ch-logo">Hotgram</h1>
-			<a href="https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes" class="ch-btn ch-btn-tiny login">Login</a>
+			<a href="https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes" class="login"><img src="src/assets/login_ins.png" alt="Login" /></a>
 		</header>
 		<section id="hottest" role="content">
 			<div class="ch-loading"></div>
@@ -31,26 +31,18 @@
 						</a>
 					</h2>
 					<ul class="ch-stats">
-						<li class="ch-icon-thumbs-up"><%= likes.count %> <span>likes&nbsp;&nbsp;</span></li>
+						<li><a href="https://api.instagram.com/v1/media/<%= id %>/likes" count-layout="none" class="ch-btn-skin ch-btn-tiny ch-icon-heart-empty shareButton">Like</a></li>
+						<li class="ch-icon-heart"><%= likes.count %> <span>likes&nbsp;&nbsp;</span></li>
 						<li class="ch-icon-comment"><%= comments.count %> <span>comments&nbsp;&nbsp;</span></li>
 					</ul>
 				</header>
 				<figure>
-					<a class="viewer" href="<%= link %>" target="_blank">
+					<a class="pic" href="<%= link %>" target="_blank">
 						<img src="<%= images.standard_resolution.url %>" alt="<%= description %>">
 					</a>
 					<% if (description !== "") { %>
 						<figcaption><%= description %></figcaption>
 					<% } %>
-					<div class="share">
-						<!--
-						<a class="ch-btn-skin ch-btn-tiny ch-icon-twitter-sign shareButton" href="https://twitter.com/share?url=<%= link %>&text=I like this photo (by <%= user.username %>) -&hashtags=hotgram,instagram" target="_blank">Tweet</a>
-						<a href="http://pinterest.com/pin/create/button/?url=<%= link %>&media=<%= images.standard_resolution.url %>&description=I like this photo (by <%= user.username %>)" count-layout="none" class="ch-btn-skin ch-btn-tiny ch-icon-pushpin shareButton">Pin it</a>
-						-->
-						<a href="https://api.instagram.com/v1/media/<%= id %>/likes" count-layout="none" class="ch-btn-skin ch-btn-tiny ch-icon-heart-empty shareButton">I like</a>
-
-						<iframe src="http://www.facebook.com/plugins/like.php?href=<%= link %>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=294291827276283" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-					</div>
 				</figure>
 			</article>
 		</script>
