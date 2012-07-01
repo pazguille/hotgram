@@ -1,7 +1,7 @@
 {
-    "name": "Hotgram - What's hot on Instagram",
+    "name": "Hotgram - Popular photos on Instagram",
     "description": "Hotgram - Unofficial Chrome Extension to view the most popular photos on Instagram.",
-    "version": "0.3",
+    "version": "1.0",
     "icons": {
         "16": "src/assets/icon16.png",
         "48": "src/assets/icon48.png",
@@ -12,7 +12,7 @@
 	],
     "browser_action": {
         "default_icon": "src/assets/icon16.png",
-        "default_title": "Hotgram - What's hot on Instagram",
+        "default_title": "Hotgram - The most popular photos on Instagram",
         "popup": "popup.html"
     }
 }

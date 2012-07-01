@@ -1,130 +1,169 @@
-/*
-* Models
-*/
+(function (exports) {
+	"use strict";
+	var app = (function () {
 
-var Photo = Backbone.Model.extend({});
+		/*
+		* Models
+		*/
+		var Photo = Backbone.Model.extend({}),
 
-/*
-* Collections
-*/
-var PhotoCollection = Backbone.Collection.extend({
-	"model": Photo,
+			/*
+			* Collections
+			*/
+			PhotoCollection = Backbone.Collection.extend({
+				"model": Photo,
 
-	"sync": function (method, model, options) {
-		options.dataType = "jsonp";
-		options.data = {"client_id": "8592b07f6eaf4efb9e3b6c7a054b6aa0"};
+				"sync": function (method, model, options) {
+					options.dataType = "jsonp";
+					options.data = {"client_id": "8592b07f6eaf4efb9e3b6c7a054b6aa0"};
 
-		return Backbone.sync(method, model, options);
-	},
+					return Backbone.sync(method, model, options);
+				},
 
-	"parse": function (response) {
-		return response.data;
-	},
+				"parse": function (response) {
+					return response.data;
+				},
 
-	"url": "https://api.instagram.com/v1/media/popular"
-});
+				"popularUrl": function () {
+					return (this.url = "https://api.instagram.com/v1/media/popular");
+				},
 
-/*
-* Views
-*/
-var PhotoView = Backbone.View.extend({
-	"tagName": "li",
+				"searchUrl": function (query) {
+					return (this.url = "https://api.instagram.com/v1/tags/" + query + "/media/recent");
+				},
 
-	"template": _.template($("#tpl-photo").html()),
+				"url": "https://api.instagram.com/v1/media/popular"
+			}),
 
-	"render": function () {
-		var photo = this.model,
-			caption = photo.get("caption"),
-			description = "";
+			/*
+			* Views
+			*/
+			PhotoView = Backbone.View.extend({
+				"tagName": "li",
 
-		if (caption !== null) {
-			description = photo.get("caption").text;
-		}
+				"template": _.template($("#tpl-photo").html()),
 
-		photo.set("description", description)
+				"render": function () {
+					var photo = this.model,
+						caption = photo.get("caption"),
+						description = "";
 
-		photo = photo.toJSON();
+					if (caption !== null) {
+						description = photo.get("caption").text;
+					}
 
-		$(this.el).html(this.template(photo));
+					photo.set("description", description);
 
-		return this;
-	}
-});
+					photo = photo.toJSON();
 
-var AppView = Backbone.View.extend({
-	"el": "#hottest",
+					$(this.el).html(this.template(photo));
 
-	"initialize": function () {
-		this.collection = new PhotoCollection();
-		
-		this.$el
-			.prepend(this.$list);
+					return this;
+				}
+			}),
 
-		this.$el.removeClass("ch-hide");
+			AppView = Backbone.View.extend({
+				"el": "#hottest",
 
-		this.reset();
+				"initialize": function () {
+					var that = this,
+						$query = $("#query");
 
-		this.fetch();
-	},
+					this.collection = new PhotoCollection();
 
-	"events": {
-		"scroll": "more",
-		"click .pic": "pic"
-	},
+					this.$search.on("submit", function () {
+						that.query = $query.val();
+						that.searching();
+						return false;
+					});
 
-	"$list": $("<ul class=\"ch-slats ch-hide\">"),
+					this.$el
+						.prepend(this.$list);
 
-	"$loading": $(".ch-loading"),
+					this.$el.removeClass("ch-hide");
 
-	"render": function () {
-		var that = this;
+					this.reset();
 
-		_.each(this.collection.models, function (photo) {
-			var photo = new PhotoView({"model": photo});
-			that.$list.append(photo.render().el);
-		}, this);
+					this.fetch();
+				},
 
-		this.$list.removeClass("ch-hide");
+				"events": {
+					"scroll": "more",
+					"click .pic": "pic"
+				},
 
-		that.trigger("end");
+				"$list": $("<ul class=\"ch-slats ch-hide\">"),
 
-		return this;
-	},
+				"$loading": $(".ch-loading"),
 
-	"fetch":  function () {
-		var that  = this;
-		this.$loading.removeClass("ch-hide");
-		this.collection.fetch({
-			"success": function () {
-				that.$loading.addClass("ch-hide");
-				that.render();
-			}
-		});
-	},
+				"$search": $(".ch-header-form"),
 
-	"more": function () {
-		var height = this.$list.height() - this.$el.height(),
-			bottom = this.el.scrollTop;
-		if (height === bottom) {
-			this.fetch();
-		};
+				"query": "",
 
-		return;
-	},
+				"render": function () {
+					var that = this;
 
-	"pic": function (event) {
-		chrome.tabs.create({"url": event.currentTarget.href});
-		return false;
-	},
+					_.each(this.collection.models, function (photo) {
+						var pic = new PhotoView({"model": photo});
+						that.$list.append(pic.render().el);
+					}, this);
 
-	"reset": function () {
-		this.collection.reset();
-		this.$list.html("");
-	}
+					this.$list.removeClass("ch-hide");
 
-});
+					return this;
+				},
 
-var hottest;
-setTimeout(function () {
-	hottest = new AppView();
-}, 1000);
+				"fetch":  function () {
+					var that  = this;
+					this.$loading.removeClass("ch-hide");
+					this.collection.fetch({
+						"success": function () {
+							that.$loading.addClass("ch-hide");
+							that.render();
+						}
+					});
+				},
+
+				"more": function () {
+					var height = this.$list.height() - this.$el.height(),
+						bottom = this.el.scrollTop;
+					if (height === bottom) {
+						this.fetch();
+					}
+
+					return;
+				},
+
+				"pic": function (event) {
+					chrome.tabs.create({"url": event.currentTarget.href});
+					return false;
+				},
+
+				"searching": function () {
+					if (this.query !== "") {
+						this.collection.searchUrl(this.query);
+					} else {
+						this.collection.popularUrl();
+					}
+					this.reset();
+					this.fetch();
+				},
+
+				"reset": function () {
+					this.collection.reset();
+					this.$list.html("");
+				}
+
+			}),
+
+			core = {
+				"hottest": AppView
+			};
+
+		return core;
+
+	}());
+
+	exports.app = new app.hottest();
+
+}(this));
