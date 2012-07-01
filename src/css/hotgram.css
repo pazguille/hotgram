@@ -6,7 +6,7 @@
 }
 
 body {
-	background: #F4F4F4;
+	background: #F4F4F4 url("../assets/body_noise_media.png") repeat;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
 	color: #524D4D;
 }
@@ -21,16 +21,16 @@ a:hover {
 
 .ch-header {
 	height: 45px;
-	border-bottom: 1px solid #1C5380;
-	background-color: #4982AF;
-	background-image: ,-webkit-gradient(linear, left top, left bottom, from(#4982AF), to(#1F5583));
-	background-image: -webkit-linear-gradient(top, #4982AF, #1F5583);
-	background-image: -moz-linear-gradient(top, #4982AF, #1F5583);
-	background-image: -o-linear-gradient(top, #4982AF, #1F5583);
-	background-image: -ms-linear-gradient(top, #4982AF, #1F5583);
-	background-image: linear-gradient(top, #4982AF, #1F5583);
-	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#4982af', EndColorStr='#1f5583');
-	background-position: 50% 50%;
+	border-bottom: 1px ridge #DFE1E4;
+	box-shadow: 0 1px 5px rgba(195, 207, 217, .5);
+	background-color: #FBFBFC;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FBFBFC), to(#F9F9FA));
+	background-image: -webkit-linear-gradient(#FBFBFC, #F9F9FA);
+	background-image: -moz-linear-gradient(#FBFBFC, #F9F9FA);
+	background-image: -o-linear-gradient(#FBFBFC, #F9F9FA);
+	background-image: -ms-linear-gradient(#FBFBFC, #F9F9FA);
+	background-image: linear-gradient(#FBFBFC, #F9F9FA);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#FBFBFC', EndColorStr='#F9F9FA');
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -41,10 +41,12 @@ a:hover {
 .ch-logo {
 	font-family: "Satisfy", cursive;
 	font-size: 2em;
-	color: #FFFFFF;
-	text-align: center;
+	color: #777878;
 	padding: 3px 0;
 	text-shadow: none;
+	position: absolute;
+	top: 0px;
+	left: 10px;
 }
 
 .ch-logo a {
@@ -175,18 +177,11 @@ a.ch-btn-skin:visited {
 /* Tiny */
 .ch-btn-tiny,
 .ch-btn-tiny:focus {
-	font-size: 14px;
+	font-size: 11px;	
 	height: 24px;
 	line-height: 25px;
 	padding: 0 5px;
 	display: inline-block;
-}
-
-a.ch-btn-skin,
-a.ch-btn-skin:active,
-a.ch-btn-skin:focus,
-a.ch-btn-skin:visited {
-	color: #8C7E7E;
 }
 
 .ch-loading {
@@ -226,8 +221,8 @@ a.ch-btn-skin:visited {
 }
 
 [class^="ch-icon-"]::before, [class*=" ch-icon-"]::before, [class^="ch-icon-"]::after, [class*=" ch-icon-"]::after {
-	font-size: 1em;
-	line-height: 1.7em;
+	font-size: 1.3em;
+	line-height: 1.5em;
 	padding: 0 3px 0 0;
 	color: #8C7E7E;
 }
@@ -242,7 +237,7 @@ a.ch-btn-skin:visited {
 
 .ch-slats > li figure {
 	overflow: hidden;
-	padding: 0 10px;
+	text-align: center;
 }
 
 .ch-slats > li a p {
@@ -256,7 +251,6 @@ a.ch-btn-skin:visited {
 }
 
 .ch-stats li {
-	float: left;
 	margin: 0 10px 0 0;
 	padding: 0 10px 0 0;
 	border-right: 1px solid #ccc;
@@ -293,7 +287,7 @@ a.ch-btn-skin:visited {
 .photo {
 	max-width: 672px;
 	margin: 5px auto;
-	padding: 10px;
+	padding: 10px 5px;
 	border-bottom: 2px groove rgba(255,255,255,.5);
 }
 
@@ -319,24 +313,24 @@ a.ch-btn-skin:visited {
 
 .photo .pic {
 	display: inline-block;
-	background: #352F2A;
-	padding: 20px;
-	-webkit-border-radius: 1em;
-	border-radius: 1em;
-	-webkit-box-shadow: 0px 0px 10px rgba(0,0,0,1) inset;
-	-moz-box-shadow: inset 0 0 40px #000;
-	box-shadow: 0px 0px 10px rgba(0,0,0,1) inset;
-	border-bottom: 1px solid #555;
+}
+
+.photo .pic img {
+	-webkit-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
 }
 
 .photo figcaption {
-	background-color: #E5E5E5;
-	margin: 10px 0;
+	background-color: rgba(49,49,49,.2);
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+	border-top: 1px groove rgba(255,255,255, .2);
+	color: #EEEEEE;
+	margin: 0 auto 5px;
+	max-width: 592px;
 	padding: 10px;
 	text-align: center;
-	-webkit-border-radius: .5em;
-	-moz-border-radius: .5em;
-	border-radius: .5em;
+	-webkit-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
 }
 
 .photo figure:hover .share {

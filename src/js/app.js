@@ -1,12 +1,12 @@
 // Save token
-if (window.location.hash.indexOf("access_token") !== -1) {
+/*if (window.location.hash.indexOf("access_token") !== -1) {
 	localStorage["hotgramToken"] = window.location.hash.split("=")[1];
 	window.location = "/hotgram";
 }
 
 if (localStorage["hotgramToken"]){
 	$(".login").remove();
-}
+}*/
 /*
 https://instagram.com/oauth/authorize/?client_id=8592b07f6eaf4efb9e3b6c7a054b6aa0&redirect_uri=http://pazguille.github.com/hotgram/&response_type=token&scope=likes
 me devuelve esto:
@@ -36,6 +36,14 @@ var PhotoCollection = Backbone.Collection.extend({
 
 	"parse": function (response) {
 		return response.data;
+	},
+
+	"popularUrl": function () {
+		return (this.url = "https://api.instagram.com/v1/media/popular");
+	},
+
+	"searchUrl": function (query) {
+		return (this.url = "https://api.instagram.com/v1/tags/" + query + "/media/recent");
 	},
 
 	"url": "https://api.instagram.com/v1/media/popular"
@@ -72,9 +80,16 @@ var AppView = Backbone.View.extend({
 	"el": "#hottest",
 
 	"initialize": function () {
-		var that = this;
+		var that = this,
+			$query = $("#query");
 
 		this.collection = new PhotoCollection();
+
+		this.$search.on("submit", function () {
+			that.query = $query.val();
+			that.searching();
+			return false;
+		});
 		
 		this.$el
 			.prepend(this.$list);
@@ -99,6 +114,10 @@ var AppView = Backbone.View.extend({
 	"$list": $("<ul class=\"ch-slats ch-hide\">"),
 
 	"$loading": $(".ch-loading"),
+
+	"$search": $(".ch-header-form"),
+
+	"query": "",
 
 	"render": function () {
 		var that = this;
@@ -142,7 +161,6 @@ var AppView = Backbone.View.extend({
 					},
 					"error": function () {
 						$(link).toggleClass("ch-icon-heart ch-icon-heart-empty");	
-						//alert("Have a problem!");
 					}
 				});
 			}());
@@ -152,6 +170,16 @@ var AppView = Backbone.View.extend({
 		window.location.href = $(".login")[0].href;
 
 		return false;
+	},
+
+	"searching": function () {
+		if (this.query !== "") {
+			this.collection.searchUrl(this.query);
+		} else {
+			this.collection.popularUrl();
+		}
+		this.reset();
+		this.fetch();
 	},
 
 	"reset": function () {
