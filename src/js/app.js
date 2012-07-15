@@ -41,7 +41,31 @@
 			PhotoView = Backbone.View.extend({
 				"tagName": "li",
 
-				"template": _.template($("#tpl-photo").html()),
+				"template": function (data) {
+					var tpl = [
+						 '<article class="photo">',
+							'<header class="details">',
+								'<h2 class="author">',
+									'<a href="'+ data.user.website +'" target="_blank">',
+										'<img src="'+ data.user.profile_picture +'" width="45" height="45" alt="'+ data.user.full_name +'" /> '+ data.user.username,
+									'</a>',
+								'</h2>',
+								'<ul class="ch-stats">',
+									'<li><iframe src="http://www.facebook.com/plugins/like.php?href='+ data.link +'&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=294291827276283" scrolling="no" frameborder="0" allowTransparency="true" width="51" height="24"></iframe></li>',
+									'<li class="ch-icon-heart">'+ data.likes.count +' <span>likes&nbsp;&nbsp;</span></li>',
+									'<li class="ch-icon-comment">'+ data.comments.count +' <span>comments&nbsp;&nbsp;</span></li>',
+								'</ul>',
+							'</header>',
+							'<figure>',
+								'<a class="pic" href="'+ data.link +'">',
+									'<img src="'+ data.images.standard_resolution.url +'" alt="'+ data.description +'">',
+								'</a>',
+								'<figcaption>'+ data.description+'</figcaption>',
+							'</figure>',
+						'</article>'
+					];
+					return tpl.join("");
+				},
 
 				"render": function () {
 					var photo = this.model,
@@ -164,6 +188,6 @@
 
 	}());
 
-	exports.app = new app.hottest();
+	exports.app = app;
 
-}(this));
+}(window));

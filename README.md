@@ -1,5 +1,7 @@
-# The most popular photos on Instagram.
-Hotgram - Unofficial chrome extension to view the most popular photos on Instagram.
+# Hotgram
+## The most popular photos on Instagram.
+Hotgram - Unofficial chrome extension to discover the most popular photos on Instagram.
+https://chrome.google.com/webstore/detail/iibopnefpofljfbmnjleebgkfailifdf
 
 ## Contact
 - Guillermo Paz (Frontend developer - JavaScript developer | Web standards lover)
